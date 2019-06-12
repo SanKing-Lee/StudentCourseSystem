@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理</title>
+</head>
+<body>
+<form th:action="@{/student/add}" method="get">
+    <div>
+        <button type="submit" style="width:220px">添加学生</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/student/delete}" method="get">
+    <div>
+        <button type="submit" style="width:220px">删除学生</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/student/search}" method="get">
+    <div>
+        <button type="submit" style="width:220px">查找学生</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/student/update}" method="get">
+    <div>
+        <button type="submit" style="width:220px">修改学生</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+    <br>
+</form>
+</body>
+</html>

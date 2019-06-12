@@ -1,7 +1,8 @@
-package com.ex4.relationship;
+package com.sean.scs.relationship;
 
-import com.ex4.entity.Course;
-import com.ex4.entity.Student;
+import com.sean.scs.entity.Course;
+import com.sean.scs.entity.Student;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,10 +21,12 @@ import java.util.Objects;
 @Entity(name = "sc")
 public class SelectCourse implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     private Student student;
 
-    @Id
     @ManyToOne
     private Course course;
 
@@ -32,8 +35,9 @@ public class SelectCourse implements Serializable {
     public SelectCourse() {
     }
 
-    public SelectCourse( int grade) {
-        this.grade = grade;
+    public SelectCourse(Student student, Course course) {
+        this.student = student;
+        this.course = course;
     }
 
     @Override

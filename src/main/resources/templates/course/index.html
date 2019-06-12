@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程管理</title>
+</head>
+<body>
+<form th:action="@{/course/add}" method="get">
+    <div>
+        <button type="submit" style="width:220px">添加课程</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/course/delete}" method="get">
+    <div>
+        <button type="submit" style="width:220px">删除课程</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/course/search}" method="get">
+    <div>
+        <button type="submit" style="width:220px">查找课程</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/course/update}" method="get">
+    <div>
+        <button type="submit" style="width:220px">修改课程</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+    <br>
+</form>
+
+</body>
+</html>

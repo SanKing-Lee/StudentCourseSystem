@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查找学生</title>
+</head>
+<body>
+<form th:action="@{/student/search}" method="post">
+    <div>
+        <span id="spanError">&nbsp;</span>
+        <span style="font-size:12px;color:red"
+              th:text="${error}" aria-describedby="spanError"></span>
+        <br/>
+    </div>
+    <div>
+        <span id="idTag">学生编号</span>
+        <input id="id" name="id" type="text"
+               placeholder="c001" aria-describedby="idTag"/>
+    </div>
+    <div>
+        <table border="1">
+            <tr>
+                <th>学生编号</th>
+                <th>学生名称</th>
+                <th>学生学院</th>
+                <th>学生年龄</th>
+                <th>学生性别</th>
+            </tr>
+            <tr>
+                <td><span th:text="${student.id}"></span></td>
+                <td><span th:text="${student.name}"></span></td>
+                <td><span th:text="${student.dept}"></span></td>
+                <td><span th:text="${student.age}"></span></td>
+                <td><span th:text="${student.gender}"></span></td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <button name="action" value="search" type="submit" style="width:220px">查找</button>
+</form>
+<form th:action="@{/student/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+</form>
+</body>
+</html>

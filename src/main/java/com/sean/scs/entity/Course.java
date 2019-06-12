@@ -1,6 +1,6 @@
-package com.ex4.entity;
+package com.sean.scs.entity;
 
-import com.ex4.relationship.SelectCourse;
+import com.sean.scs.relationship.SelectCourse;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -22,14 +22,10 @@ import java.util.Objects;
 @Entity(name = "course")
 public class Course implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", length = 100)
+    private String id;
 
-    @NaturalId
-    @Column(name = "cid", length = 100)
-    private String cid;
-
-    private String cname;
+    private String name;
     private String dept;
     private double credits;
 
@@ -40,6 +36,20 @@ public class Course implements Serializable {
     )
     private List<SelectCourse> students = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "teacher_id", foreignKey = @ForeignKey(name = "TEACHER_ID_FK"))
+    private Teacher teacher;
+
+    public Course() {
+    }
+
+    public Course(String id, String name, String dept, double credits) {
+        this.id = id;
+        this.name = name;
+        this.dept = dept;
+        this.credits = credits;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,49 +57,30 @@ public class Course implements Serializable {
         Course course = (Course) o;
         return Double.compare(course.credits, credits) == 0 &&
                 Objects.equals(id, course.id) &&
-                Objects.equals(cid, course.cid) &&
-                Objects.equals(cname, course.cname) &&
+                Objects.equals(name, course.name) &&
                 Objects.equals(dept, course.dept) &&
                 Objects.equals(students, course.students);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cid, cname, dept, credits, students);
+        return Objects.hash(id, name, dept, credits, students);
     }
 
-    public Course() {
-    }
-
-    public Course(String cid, String cname, String dept, double credits) {
-        this.cid = cid;
-        this.cname = cname;
-        this.dept = dept;
-        this.credits = credits;
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getCid() {
-        return cid;
+    public String getName() {
+        return name;
     }
 
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
-
-    public String getCname() {
-        return cname;
-    }
-
-    public void setCname(String cname) {
-        this.cname = cname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDept() {
@@ -106,5 +97,13 @@ public class Course implements Serializable {
 
     public void setCredits(double credits) {
         this.credits = credits;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

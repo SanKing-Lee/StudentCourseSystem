@@ -1,8 +1,9 @@
-package com.ex4.entity;
+package com.sean.scs.entity;
 
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,31 +19,21 @@ import java.util.Objects;
  * [Date][Version][Author] What has been done;
  */
 
-@Entity
-@Table(name = "teacher")
+@Entity(name = "teacher")
 public class Teacher implements Serializable {
     @Id
-    private Long id;
-
-    @NaturalId
-    @Column(name = "tid", length = 100)
-    private String tid;
-    private String tname;
+    @Column(name = "id", length = 100)
+    private String id;
+    private String name;
     private String dept;
     private double salary;
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Course> courses = new ArrayList<>();
 
     public Teacher() {
     }
 
-    public Teacher(String tid, String tname, String dept, double salary) {
-        this.tid = tid;
-        this.tname = tname;
+    public Teacher(String id, String name, String dept, double salary) {
+        this.id = id;
+        this.name = name;
         this.dept = dept;
         this.salary = salary;
     }
@@ -54,39 +45,29 @@ public class Teacher implements Serializable {
         Teacher teacher = (Teacher) o;
         return Double.compare(teacher.salary, salary) == 0 &&
                 Objects.equals(id, teacher.id) &&
-                Objects.equals(tid, teacher.tid) &&
-                Objects.equals(tname, teacher.tname) &&
-                Objects.equals(dept, teacher.dept) &&
-                Objects.equals(courses, teacher.courses);
+                Objects.equals(name, teacher.name) &&
+                Objects.equals(dept, teacher.dept);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tid, tname, dept, salary, courses);
+        return Objects.hash(id, name, dept, salary);
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getTid() {
-        return tid;
+    public String getName() {
+        return name;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid;
-    }
-
-    public String getTname() {
-        return tname;
-    }
-
-    public void setTname(String tname) {
-        this.tname = tname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDept() {
@@ -105,12 +86,4 @@ public class Teacher implements Serializable {
         this.salary = salary;
     }
 
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
 }

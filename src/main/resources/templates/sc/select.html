@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>选择课程</title>
+</head>
+<body>
+<form th:action="@{/sc/select}" method="post">
+    <div>
+        <table border="1">
+            <tr>
+                <th>课程编号</th>
+                <th>课程名称</th>
+                <th>开课学院</th>
+                <th>课程学分</th>
+                <th>教师姓名</th>
+                <th>选择课程</th>
+            </tr>
+            <tr  th:each="course, courseStat : ${courses}" >
+                <td><span th:text="${course.id}"></span></td>
+                <td><span th:text="${course.name}"></span></td>
+                <td><span th:text="${course.dept}"></span></td>
+                <td><span th:text="${course.credits}"></span></td>
+                <td><span th:text="${course.teacher.name}"></span></td>
+                <td><button type="submit" name="cid" th:value="${course.id}">选择</button></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+</form>
+<form th:action="@{/sc/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+</form>
+</body>
+</html>

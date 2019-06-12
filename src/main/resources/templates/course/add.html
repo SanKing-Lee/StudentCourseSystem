@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加课程</title>
+</head>
+<body>
+<form th:action="@{/course/add}" method="post">
+    <div>
+        <span id="spanError">&nbsp;</span>
+        <span style="font-size:12px;color:red"
+              th:text="${error}" aria-describedby="spanError"></span>
+        <br/>
+    </div>
+    <div>
+        <span id="idTag">课程编号</span>
+        <input id="id" name="id" type="text"
+               placeholder="c001" aria-describedby="id"/>
+    </div>
+    <div>
+        <span id="nameTag">课程名称</span>
+        <input id="name" name="name" type="text"
+               placeholder="database" aria-describedby="nameTag"/>
+    </div>
+    <div>
+        <span id="deptTag">开课学院</span>
+        <input id="dept" name="dept" type="text"
+               placeholder="cs" aria-describedby="deptTag"/>
+    </div>
+    <div>
+        <span id="creditsTag">学分</span>
+        <input id="credits" name="credits" type="number" min="0.0" max="10.0" step="0.5"
+               placeholder="0.0" aria-describedby="creditsTag"/>
+    </div>
+    <div>
+        <span id="teacherIdTag">教师编号</span>
+        <input id="teacherId" name="teacherId" type="text"
+               placeholder="14001" aria-describedby="teacherIdTag"/>
+    </div>
+    <br/>
+    <button style="width:220px">添加</button>
+</form>
+<form th:action="@{/course/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查找教师</title>
+</head>
+<body>
+<form th:action="@{/teacher/search}" method="post">
+    <div>
+        <span id="spanError">&nbsp;</span>
+        <span style="font-size:12px;color:red"
+              th:text="${error}" aria-describedby="spanError"></span>
+        <br/>
+    </div>
+    <div>
+        <span id="idTag">教师编号</span>
+        <input id="id" name="id" type="text"
+               placeholder="c001" aria-describedby="idTag"/>
+    </div>
+    <div>
+        <table border="1">
+            <tr>
+                <th>教师编号</th>
+                <th>教师名称</th>
+                <th>教师学院</th>
+                <th>教师工资</th>
+            </tr>
+            <tr>
+                <td><span th:text="${teacher.id}"></span></td>
+                <td><span th:text="${teacher.name}"></span></td>
+                <td><span th:text="${teacher.dept}"></span></td>
+                <td><span th:text="${teacher.salary}"></span></td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <button name="action" value="search" type="submit" style="width:220px">查找</button>
+</form>
+<form th:action="@{/teacher/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+</form>
+</body>
+</html>

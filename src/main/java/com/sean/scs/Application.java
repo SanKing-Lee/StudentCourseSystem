@@ -1,5 +1,6 @@
 package com.sean.scs;
 
+import com.sean.scs.dao.CourseDAO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

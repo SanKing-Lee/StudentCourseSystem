@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师管理</title>
+</head>
+<body>
+<form th:action="@{/teacher/add}" method="get">
+    <div>
+        <button type="submit" style="width:220px">添加教师</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/teacher/delete}" method="get">
+    <div>
+        <button type="submit" style="width:220px">删除教师</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/teacher/search}" method="get">
+    <div>
+        <button type="submit" style="width:220px">查找教师</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/teacher/update}" method="get">
+    <div>
+        <button type="submit" style="width:220px">修改教师</button>
+    </div>
+    <br>
+</form>
+<form th:action="@{/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+</form>
+</body>
+</html>

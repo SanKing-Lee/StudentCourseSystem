@@ -1,6 +1,6 @@
-package com.ex4.entity;
+package com.sean.scs.entity;
 
-import com.ex4.relationship.SelectCourse;
+import com.sean.scs.relationship.SelectCourse;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -21,16 +21,16 @@ import java.util.Objects;
 @Entity(name = "student")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id", length = 100)
+    private String id;
 
-    @NaturalId
-    @Column(name = "sid", length = 100)
-    private String sid;
-
-    private String sname;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "dept")
     private String dept;
+    @Column(name = "age")
     private int age;
+    @Column(name = "gender")
     private String gender;
 
     @OneToMany(
@@ -43,9 +43,9 @@ public class Student {
     public Student() {
     }
 
-    public Student(String sid, String sname, String dept, int age, String gender) {
-        this.sid = sid;
-        this.sname = sname;
+    public Student(String id, String name, String dept, int age, String gender) {
+        this.id = id;
+        this.name = name;
         this.dept = dept;
         this.age = age;
         this.gender = gender;
@@ -56,10 +56,9 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id &&
-                age == student.age &&
-                Objects.equals(sid, student.sid) &&
-                Objects.equals(sname, student.sname) &&
+        return age == student.age &&
+                Objects.equals(id, student.id) &&
+                Objects.equals(name, student.name) &&
                 Objects.equals(dept, student.dept) &&
                 Objects.equals(gender, student.gender) &&
                 Objects.equals(courses, student.courses);
@@ -67,31 +66,23 @@ public class Student {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sid, sname, dept, age, gender, courses);
+        return Objects.hash(id, name, dept, age, gender, courses);
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getSid() {
-        return sid;
+    public String getName() {
+        return name;
     }
 
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
-
-    public String getSname() {
-        return sname;
-    }
-
-    public void setSname(String sname) {
-        this.sname = sname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDept() {
