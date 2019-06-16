@@ -5,6 +5,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * Author: Sean
@@ -17,5 +20,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface  CourseDAO extends JpaRepository<Course, String>{
-
+    @Query(value = "select * from course where teacher_id = ?1", nativeQuery = true)
+    public List<Course> findCoursesByTeacher(String teacherId);
 }

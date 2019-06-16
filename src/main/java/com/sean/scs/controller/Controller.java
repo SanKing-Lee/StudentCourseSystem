@@ -37,6 +37,12 @@ public class Controller {
         return modelAndView;
     }
 
+    @GetMapping("/index")
+    public ModelAndView index(ModelAndView modelAndView){
+        modelAndView.setViewName("/index");
+        return modelAndView;
+    }
+
     @RequestMapping("/index")
     public ModelAndView index(ModelAndView modelAndView, HttpSession httpSession, @Valid Integer identity, @Valid String id){
         if(identity==1){

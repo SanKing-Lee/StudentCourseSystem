@@ -22,6 +22,9 @@ public interface SelectCourseDAO extends JpaRepository<SelectCourse, Long> {
     @Query(value = "select * from sc where student_id = ?1", nativeQuery = true)
     public List<SelectCourse> findByStudentId(String student_id);
 
+    @Query(value = "select * from sc where course_id = ?1", nativeQuery = true)
+    public List<SelectCourse> findByCourseId(String courseId);
+
     @Modifying
     @Transactional
     @Query(value = "delete from sc where student_id=?1 and course_id = ?2", nativeQuery = true)

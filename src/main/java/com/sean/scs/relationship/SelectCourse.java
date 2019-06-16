@@ -78,4 +78,12 @@ public class SelectCourse implements Serializable {
     public void setGrade(int grade) {
         this.grade = grade;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

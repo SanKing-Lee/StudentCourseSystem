@@ -6,6 +6,7 @@ import com.sean.scs.dao.StudentDAO;
 import com.sean.scs.entity.Course;
 import com.sean.scs.entity.Student;
 import com.sean.scs.relationship.SelectCourse;
+import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,20 @@ public class SelectCourseService {
             courses.add(selectCourse.getCourse());
         }
         return courses;
+    }
+
+    public List<SelectCourse> getTeachCoursesByCourseIds(String id){
+        List<Course> courses = courseDAO.findCoursesByTeacher(id);
+        List<SelectCourse> selectCourses = new ArrayList<>();
+        if(courses == null){
+            return selectCourses;
+        }
+        for(Course course: courses){
+            if(course == null){
+                continue;
+            }
+            selectCourses.addAll(selectCourseDAO.findByCourseId(course.getId()));
+        }
+        return selectCourses;
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>录入成绩</title>
+</head>
+<body>
+<form th:action="@{/grade/set}" method="post">
+    <div>
+        <table border="1">
+            <tr>
+                <th>课程编号</th>
+                <th>课程名称</th>
+                <th>学生编号</th>
+                <th>学生姓名</th>
+                <th>成绩</th>
+                <th>确认</th>
+            </tr>
+            <tr th:each="selectCourse, selectCourseIte:${selectCourses}">
+                <td><span th:text="${selectCourse.course.id}"></span></td>
+                <td><span th:text="${selectCourse.course.name}"></span></td>
+                <td><span th:text="${selectCourse.student.id}"></span></td>
+                <td><span th:text="${selectCourse.student.name}"></span></td>
+                <td><input id="grade" name="grade" type="number" min="0.0" max="100.0" step="0.5"
+                           th:placeholder="${selectCourse.grade}">
+                </td>
+                <td><button type="submit" name="scId" th:value="${selectCourse.id}">提交</button></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+</form>
+<form th:action="@{/sc/index}" method="get">
+    <div>
+        <button type="submit" style="width:220px">返回</button>
+    </div>
+</form>
+</body>
+</html>

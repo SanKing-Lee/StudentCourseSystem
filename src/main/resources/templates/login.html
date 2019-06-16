@@ -13,7 +13,8 @@
         <br/>
     </div>
     <div>
-        <select id = "identity" name = "identity">
+        <span id = "identityTag">身份</span>
+        <select id = "identity" name = "identity" aria-describedby="identityTag">
             <option th:value="1">教师</option>
             <option th:value="2">学生</option>
         </select>

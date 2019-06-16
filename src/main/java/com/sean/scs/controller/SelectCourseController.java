@@ -41,6 +41,15 @@ public class SelectCourseController {
     @Autowired
     private SelectCourseService selectCourseService;
 
+    private Student getStudent(HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if(!(user instanceof Student)){
+            return null;
+        }
+        Student student = (Student)user;
+        return student;
+    }
+
     @GetMapping("/index")
     public ModelAndView index(ModelAndView modelAndView) {
         modelAndView.setViewName("/sc/index");
@@ -49,13 +58,12 @@ public class SelectCourseController {
 
     @GetMapping("/select")
     public ModelAndView select(ModelAndView modelAndView, HttpSession httpSession) {
-        Object user = httpSession.getAttribute("user");
-        if(!(user instanceof Student)){
-            modelAndView.addObject("error", "非学生无法进行该操作！");
+        Student student = getStudent(httpSession);
+        if(student == null){
+            modelAndView.addObject("error", "账号无效！");
             modelAndView.setViewName("/index");
             return modelAndView;
         }
-        Student student = (Student)user;
         List<Course> courses = selectCourseService.getUnselectedCourses(student.getId());
         modelAndView.getModelMap().put("courses", courses);
         modelAndView.setViewName("/sc/select");
@@ -64,11 +72,11 @@ public class SelectCourseController {
 
     @RequestMapping("/select")
     public ModelAndView select(ModelAndView modelAndView, HttpSession httpSession, String cid) {
-
-        Student student =(Student)httpSession.getAttribute("user");
+        Student student = getStudent(httpSession);
         Course selectedCourse = courseDAO.findById(cid).orElse(null);
-        if (student == null || selectedCourse == null) {
-            modelAndView.setViewName("/sc/select");
+        if(student == null || selectedCourse == null){
+            modelAndView.addObject("error", "操作无效！");
+            modelAndView.setViewName("/index");
             return modelAndView;
         }
         selectCourseDAO.save(new SelectCourse(student, selectedCourse));
@@ -78,23 +86,29 @@ public class SelectCourseController {
     }
 
     @GetMapping("/withdraw")
-    public ModelAndView withdraw(ModelAndView modelAndView) {
-        List<Course> courses = selectCourseService.getSelectedCourses("s1");
+    public ModelAndView withdraw(ModelAndView modelAndView, HttpSession httpSession) {
+        Student student = getStudent(httpSession);
+        if(student == null){
+            modelAndView.addObject("error", "账号无效！");
+            modelAndView.setViewName("/index");
+            return modelAndView;
+        }
+        List<Course> courses = selectCourseService.getSelectedCourses(student.getId());
         modelAndView.addObject("courses", courses);
         modelAndView.setViewName("/sc/withdraw");
         return modelAndView;
     }
 
     @RequestMapping("/withdraw")
-    public ModelAndView withdraw(ModelAndView modelAndView, String cid){
-        Student student = studentDAO.findById("s1").orElse(null);
+    public ModelAndView withdraw(ModelAndView modelAndView, HttpSession httpSession, String cid){
+        Student student = getStudent(httpSession);
         Course selectedCourse = courseDAO.findById(cid).orElse(null);
         if (student == null || selectedCourse == null) {
             modelAndView.setViewName("/sc/withdraw");
             return modelAndView;
         }
         selectCourseDAO.deleteByStudentIdAndCourseId(student.getId(), selectedCourse.getId());
-        modelAndView.addObject("courses", selectCourseService.getSelectedCourses("s1"));
+        modelAndView.addObject("courses", selectCourseService.getSelectedCourses(student.getId()));
         modelAndView.setViewName("/sc/withdraw");
         return modelAndView;
     }
